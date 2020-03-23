@@ -105,6 +105,8 @@ public class InputPanel extends JPanel implements ActionListener {
         operators_c.gridy = 2;
         panel_operators.add(key_paren_close, operators_c);
         JButton key_backspace = new JButton("←");
+        key_backspace.addActionListener(this);
+        key_backspace.setActionCommand("BACKSPACE");
         operators_c.gridx = 0;
         operators_c.gridy = 3;
         operators_c.fill = GridBagConstraints.HORIZONTAL;
@@ -121,7 +123,12 @@ public class InputPanel extends JPanel implements ActionListener {
     }
     public void actionPerformed(final ActionEvent e) {
         String c = e.getActionCommand();
+        System.out.println("Command entered: "+c); //test code, remove from final version
         switch(c) {
+            case "BACKSPACE":
+                String newstr = this.input_field.getText();
+                this.input_field.setText(newstr.substring(0, newstr.length() - 1));
+                break;
             case "CLEAR":
                 this.input_field.setText("");
                 break;
