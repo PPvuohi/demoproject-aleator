@@ -57,9 +57,10 @@ public class InputPanel extends JPanel implements ActionListener {
         numpad_keys.add(btn);
         btn.addActionListener(this);
         btn.setActionCommand(btn.getText());
-    numpad_c.gridx = 0;
+        numpad_c.gridx = 0;
         numpad_c.gridy = 3;
         panel_numpad.add(numpad_keys.get(0), numpad_c);
+        //number keys 1 to 9
         for (int i=0; i<=8; i++) {
             btn = new JButton(""+(i+1));
             btn.addActionListener(this);
