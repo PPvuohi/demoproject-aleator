@@ -10,7 +10,7 @@ public class InputPanel extends JPanel implements ActionListener {
     /**
      *
      */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     JTextField input_field  = new JTextField(" ",20);
 
@@ -52,32 +52,32 @@ public class InputPanel extends JPanel implements ActionListener {
         panel_numpad.setLayout(new GridBagLayout());
         GridBagConstraints numpad_c = new GridBagConstraints();
 
-        ArrayList<JButton> numpad_keys = new ArrayList<JButton>();
-        JButton btn = new JButton("0");
+        ArrayList<JButton> numpad_keys = new ArrayList<JButton>();  //storing these in case we need an easy way to refer to them later
+        JButton btn = new JButton("0"); // 0 added separately so it goes where we want it
         numpad_keys.add(btn);
-        btn.addActionListener(this);
-        btn.setActionCommand(btn.getText());
         numpad_c.gridx = 0;
         numpad_c.gridy = 3;
         panel_numpad.add(numpad_keys.get(0), numpad_c);
         //number keys 1 to 9
         for (int i=0; i<=8; i++) {
             btn = new JButton(""+(i+1));
-            btn.addActionListener(this);
-            btn.setActionCommand(btn.getText());
             numpad_keys.add(btn);
             numpad_c.gridx = i%3;
             numpad_c.gridy = i/3;
             panel_numpad.add(btn, numpad_c);
         }
-        JButton key_d = new JButton("d");
-        key_d.addActionListener(this);
-        key_d.setActionCommand("DIE");
+        JButton key_d = new JButton("d");   // die key
         numpad_c.fill = GridBagConstraints.HORIZONTAL;
         numpad_c.gridwidth = 2;
         numpad_c.gridx = 1;
         numpad_c.gridy = 3;
         panel_numpad.add(key_d, numpad_c);
+        for (Component c : panel_numpad.getComponents()) {
+            if (c instanceof JButton) {
+                ((JButton) c).addActionListener(this);
+                ((JButton) c).setActionCommand(((JButton) c).getText());
+            }
+        }
         panel_keys.add(panel_numpad);
 
         JPanel panel_operators = new JPanel();
@@ -108,14 +108,18 @@ public class InputPanel extends JPanel implements ActionListener {
         operators_c.gridy = 2;
         panel_operators.add(key_paren_close, operators_c);
         JButton key_backspace = new JButton("←");
-        key_backspace.addActionListener(this);
-        key_backspace.setActionCommand("BACKSPACE");
         operators_c.gridx = 0;
         operators_c.gridy = 3;
         operators_c.fill = GridBagConstraints.HORIZONTAL;
         operators_c.gridwidth  = 2;
         operators_c.gridheight = 2;
         panel_operators.add(key_backspace, operators_c);
+        for (Component c : panel_operators.getComponents()) {
+            if (c instanceof JButton) {
+                ((JButton) c).addActionListener(this);
+                ((JButton) c).setActionCommand(((JButton) c).getText());
+            }
+        }
         panel_keys.add(panel_operators);
 
         JButton key_enter = new JButton("enter");
@@ -129,13 +133,15 @@ public class InputPanel extends JPanel implements ActionListener {
         String str = this.input_field.getText();
         System.out.println("Command entered: "+c); //test code, remove from final version
         switch(c) {
-            case "BACKSPACE":
-                this.input_field.setText(str.substring(0, str.length() - 1));
+            case "←":
+                if (str.length() > 0) {
+                    this.input_field.setText(str.substring(0, str.length() - 1));
+                }
                 break;
             case "CLEAR":
                 this.input_field.setText("");
                 break;
-            case "DIE":
+            case "d":
                 if(!Character.isDigit(str.charAt(str.length()-1))) {
                     str += '1';
                 }
