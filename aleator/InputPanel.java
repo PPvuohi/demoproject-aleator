@@ -70,6 +70,8 @@ public class InputPanel extends JPanel implements ActionListener {
             panel_numpad.add(btn, numpad_c);
         }
         JButton key_d = new JButton("d");
+        key_d.addActionListener(this);
+        key_d.setActionCommand("DIE");
         numpad_c.fill = GridBagConstraints.HORIZONTAL;
         numpad_c.gridwidth = 2;
         numpad_c.gridx = 1;
@@ -123,14 +125,21 @@ public class InputPanel extends JPanel implements ActionListener {
     }
     public void actionPerformed(final ActionEvent e) {
         String c = e.getActionCommand();
+        String str = this.input_field.getText();
         System.out.println("Command entered: "+c); //test code, remove from final version
         switch(c) {
             case "BACKSPACE":
-                String newstr = this.input_field.getText();
-                this.input_field.setText(newstr.substring(0, newstr.length() - 1));
+                this.input_field.setText(str.substring(0, str.length() - 1));
                 break;
             case "CLEAR":
                 this.input_field.setText("");
+                break;
+            case "DIE":
+                if(!Character.isDigit(str.charAt(str.length()-1))) {
+                    str += '1';
+                }
+                str += 'd';
+                this.input_field.setText(str);
                 break;
             default:
                 this.input_field.setText(this.input_field.getText() + c);
