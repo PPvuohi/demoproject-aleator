@@ -6,11 +6,13 @@ public class OutputPanel extends JPanel {
     /**
      *
      */
-    private static final long serialVersionUID = -5338073976534161258L;
+    private static final long serialVersionUID = 0L;
 
-    JTextField output_field = new JTextField(" ", 20);
+    JTextArea output_field = new JTextArea("", 20, 20);
+    App root;
 
-    OutputPanel() {
+    OutputPanel(App root) {
+        this.root = root;
         output_field.setEditable(false);
         this.add(output_field);
 
@@ -23,5 +25,9 @@ public class OutputPanel extends JPanel {
         JButton btn_clear = new JButton("C");
         output_nav.add(btn_clear);
         this.add(output_nav);
+    }
+    protected void addLine(String str) {
+        String current = this.output_field.getText();
+        this.output_field.setText(current + System.lineSeparator() + str);
     }
 }

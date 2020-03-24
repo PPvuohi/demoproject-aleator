@@ -10,11 +10,13 @@ public class InputPanel extends JPanel implements ActionListener {
     /**
      *
      */
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 3L;
 
-    JTextField input_field  = new JTextField(" ",20);
+    JTextField input_field  = new JTextField("",20);
+    App root;
 
-    InputPanel() {
+    InputPanel(App root) {
+        this.root = root;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         //input field
@@ -130,6 +132,8 @@ public class InputPanel extends JPanel implements ActionListener {
         panel_keys.add(panel_operators);
 
         final JButton key_enter = new JButton("enter");
+        key_enter.addActionListener(this);
+        key_enter.setActionCommand("ENTER");
         panel_keys.add(key_enter);
 
         this.add(panel_keys);
@@ -144,12 +148,19 @@ public class InputPanel extends JPanel implements ActionListener {
         return Character.isDigit(str.charAt(str.length() - 1));
     }
 
+    protected String getInput() {
+        return this.input_field.getText();
+    }
+
     public void actionPerformed(final ActionEvent e) {
         // FIXME: prevent chained die entries e.g. "1d1d"
         final String c = e.getActionCommand();
         String str = this.input_field.getText();
         System.out.println("Command entered: "+c); //test code, remove from final version
-        if (c.length() > 1) {     //die quickbuttons
+        if (c == "ENTER") {
+            this.root.enterInput();
+            this.input_field.setText("");
+        } else if (c.length() > 1) {     //die quickbuttons
             if (c.charAt(0) == 'd') {
                 if (!this.prev_is_digit()) {
                     str += '1';
