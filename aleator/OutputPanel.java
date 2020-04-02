@@ -1,8 +1,9 @@
 package aleator;
 
 import javax.swing.*;
+import java.awt.event.*;
 
-public class OutputPanel extends JPanel {
+public class OutputPanel extends JPanel implements ActionListener {
     /**
      *
      */
@@ -23,11 +24,28 @@ public class OutputPanel extends JPanel {
         JButton btn_scrolldown = new JButton("⇩");
         output_nav.add(btn_scrolldown);
         JButton btn_clear = new JButton("C");
-        output_nav.add(btn_clear);
+        btn_clear.addActionListener(this);
+        btn_clear.setActionCommand("CLEAR");
+         output_nav.add(btn_clear);
         this.add(output_nav);
     }
     protected void addLine(String str) {
-        String current = this.output_field.getText();
-        this.output_field.setText(current + System.lineSeparator() + str);
+        String contents = this.output_field.getText();
+        if (contents.length() > 0) {
+            contents += System.lineSeparator();
+        }
+        contents += str;
+        this.output_field.setText(contents);
+    }
+
+    public void actionPerformed(final ActionEvent e) {
+        final String c = e.getActionCommand();
+        switch(c) {
+            case "CLEAR":
+                this.output_field.setText("");
+                break;
+            default:
+                break;
+        }
     }
 }
