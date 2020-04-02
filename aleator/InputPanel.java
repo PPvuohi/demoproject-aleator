@@ -160,14 +160,12 @@ public class InputPanel extends JPanel implements ActionListener {
         if (c == "ENTER") {
             this.root.enterInput();
             this.input_field.setText("");
-        } else if (c.length() > 1) {     //die quickbuttons
-            if (c.charAt(0) == 'd') {
-                if (!this.prev_is_digit()) {
-                    str += '1';
-                }
-                str += c;
-                this.input_field.setText(str);
+        } else if (c.charAt(0) == 'd') {     //die quickbuttons
+            if (!this.prev_is_digit()) {
+                str += '1';
             }
+            str += c;
+            this.input_field.setText(str);
         } else {
             switch(c) {
                 case "←":
