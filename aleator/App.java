@@ -27,8 +27,14 @@ public class App extends JFrame {
     }
 
     protected void enterInput() {
+        String output;
         String str = this.input.getInput();
-        str = this.parser.parse(str);
-        this.output.addLine(str);
+        float result = this.parser.parse(str);
+        if ((int)result == result) {    //don't display trailing zeroes 
+            output = String.format("%d",(int)result);
+        } else {
+            output = String.format("%s",result);
+        }
+        this.output.addLine(output);
     }
 }
