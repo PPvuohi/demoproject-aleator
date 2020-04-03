@@ -13,6 +13,7 @@ public class InputPanel extends JPanel implements ActionListener {
     private static final long serialVersionUID = 3L;
 
     JTextField input_field  = new JTextField("",20);
+    String operators = "+-*÷d";
     App root;
 
     InputPanel(App root) {
@@ -140,6 +141,16 @@ public class InputPanel extends JPanel implements ActionListener {
 
     }
 
+    private boolean is_operator(String c) {
+        return this.operators.contains(c);
+    }
+    private boolean prev_is_operator() {
+        final String str = this.input_field.getText();
+        if (str.length() < 1) {
+            return false;
+        }
+        return this.operators.indexOf(str.charAt(str.length() - 1)) != -1;
+    }
     private boolean prev_is_digit() {
         final String str = this.input_field.getText();
         if (str.length() < 1) {
@@ -155,6 +166,7 @@ public class InputPanel extends JPanel implements ActionListener {
     public void actionPerformed(final ActionEvent e) {
         // FIXME: prevent chained die entries e.g. "1d1d"
         final String c = e.getActionCommand();
+        boolean isFine = true;
         String str = this.input_field.getText();
         System.out.println("Command entered: "+c); //test code, remove from final version
         if (c == "ENTER") {
@@ -184,7 +196,11 @@ public class InputPanel extends JPanel implements ActionListener {
                     this.input_field.setText(str);
                     break;
                 default:
-                    this.input_field.setText(str + c);
+                    //prevent entering operator before entering something else
+                    isFine = (!this.is_operator(c) || !this.prev_is_operator());
+                    if (isFine) {
+                        this.input_field.setText(str + c);
+                    }
             }
         }
     }
