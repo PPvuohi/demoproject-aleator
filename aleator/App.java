@@ -28,13 +28,13 @@ public class App extends JFrame {
 
     protected void enterInput() {
         String output;
-        String str = this.input.getInput();
-        float result = this.parser.parse(str);
+        String input = this.input.getInput();
+        float result = this.parser.parse(input);
         if ((int)result == result) {    //don't display trailing zeroes 
             output = String.format("%d",(int)result);
         } else {
             output = String.format("%s",result);
         }
-        this.output.addLine(output);
+        this.output.addLine(input + " → " + output);
     }
 }
