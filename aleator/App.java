@@ -15,6 +15,7 @@ public class App extends JFrame {
     String prev_input = "";
     
     App() {
+        this.setTitle("Aleator");
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 
         this.output = new OutputPanel(this);
