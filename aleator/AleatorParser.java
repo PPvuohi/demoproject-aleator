@@ -66,7 +66,7 @@ public class AleatorParser {
         if (sides == 0) {
             result = 0;
         } else if (sides < 0) {
-            result = -this.r.nextInt(-sides)+1;
+            result = -(this.r.nextInt(-sides)+1);
         }
         else {
             result = this.r.nextInt(sides)+1;
