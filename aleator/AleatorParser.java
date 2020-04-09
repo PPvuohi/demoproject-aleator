@@ -10,8 +10,6 @@ public class AleatorParser {
     }
     public float parse(String s) {
         return parseForSum(s);
-//        return parseForSum(s);
-//        return parseForDie(s);
     }
     public float parseForSum(String s) {
         String[] parts = s.split("\\+");
