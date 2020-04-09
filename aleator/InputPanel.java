@@ -4,13 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.awt.event.*;
+import javax.swing.ImageIcon;
+import java.awt.GridLayout;
 
 public class InputPanel extends JPanel implements ActionListener {
 
     /**
      *
      */
-    private static final long serialVersionUID = 3L;
+    private static final long serialVersionUID = 4L;
 
     JTextField input_field  = new JTextField("",20);
     String operators = "+-*÷d";
@@ -32,6 +34,7 @@ public class InputPanel extends JPanel implements ActionListener {
 
         // die shortcuts
         final JPanel panel_die_shortcuts = new JPanel();
+        panel_die_shortcuts.setLayout(new GridLayout(1,7));
         final JButton btn_d4 = new JButton("d4");
         final JButton btn_d6 = new JButton("d6");
         final JButton btn_d8 = new JButton("d8");
@@ -39,6 +42,13 @@ public class InputPanel extends JPanel implements ActionListener {
         final JButton btn_d12 = new JButton("d12");
         final JButton btn_d20 = new JButton("d20");
         final JButton btn_d100 = new JButton("d100");
+        btn_d4.setIcon(new ImageIcon("resources/d4.png"));
+        btn_d6.setIcon(new ImageIcon("resources/d6.png"));
+        btn_d8.setIcon(new ImageIcon("resources/d8.png"));
+        btn_d10.setIcon(new ImageIcon("resources/d10.png"));
+        btn_d12.setIcon(new ImageIcon("resources/d12.png"));
+        btn_d20.setIcon(new ImageIcon("resources/d20.png"));
+        btn_d100.setIcon(new ImageIcon("resources/d100.png"));
         panel_die_shortcuts.add(btn_d4);
         panel_die_shortcuts.add(btn_d6);
         panel_die_shortcuts.add(btn_d8);
@@ -49,7 +59,9 @@ public class InputPanel extends JPanel implements ActionListener {
         for (final Component c : panel_die_shortcuts.getComponents()) {
             if (c instanceof JButton) {
                 ((JButton) c).addActionListener(this);
-                ((JButton) c).setActionCommand(((JButton) c).getText());
+                String thetext = ((JButton) c).getText();
+                ((JButton) c).setActionCommand(thetext);
+                ((JButton) c).setText("");
             }
         }
         this.add(panel_die_shortcuts);

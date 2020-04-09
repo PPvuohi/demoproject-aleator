@@ -17,7 +17,7 @@ public class App extends JFrame {
     
     App() {
         this.setTitle("Aleator");
-        ImageIcon img = new ImageIcon("./ic_launcher.png");
+        ImageIcon img = new ImageIcon("resources/ic_launcher.png");
         this.setIconImage(img.getImage());
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 
