@@ -9,12 +9,13 @@ public class OutputPanel extends JPanel implements ActionListener {
      */
     private static final long serialVersionUID = 0L;
 
-    JTextArea output_field = new JTextArea("", 20, 20);
+    JTextArea output_field = new JTextArea("", 10, 20);
     App root;
 
     OutputPanel(App root) {
         this.root = root;
         output_field.setEditable(false);
+        output_field.setFont(output_field.getFont().deriveFont(24f));
         this.add(output_field);
 
         JPanel output_nav = new JPanel();

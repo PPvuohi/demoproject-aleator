@@ -2,6 +2,7 @@ package aleator;
 
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.ImageIcon;
 
 public class App extends JFrame {
 
@@ -16,6 +17,8 @@ public class App extends JFrame {
     
     App() {
         this.setTitle("Aleator");
+        ImageIcon img = new ImageIcon("./ic_launcher.png");
+        this.setIconImage(img.getImage());
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 
         this.output = new OutputPanel(this);

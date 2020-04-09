@@ -22,6 +22,7 @@ public class InputPanel extends JPanel implements ActionListener {
 
         //input field
         final JPanel thisline = new JPanel();
+        input_field.setFont(input_field.getFont().deriveFont(18f));
         thisline.add(input_field);
         final JButton input_clear = new JButton("C");
         input_clear.addActionListener(this);
