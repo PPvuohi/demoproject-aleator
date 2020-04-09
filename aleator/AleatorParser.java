@@ -62,6 +62,15 @@ public class AleatorParser {
         return result;
     }
     public int rollDie(int sides) {
-        return this.r.nextInt(sides)+1;
+        int result;
+        if (sides == 0) {
+            result = 0;
+        } else if (sides < 0) {
+            result = -this.r.nextInt(-sides)+1;
+        }
+        else {
+            result = this.r.nextInt(sides)+1;
+        }
+        return result;
     }
 }
