@@ -8,10 +8,11 @@ public class App extends JFrame {
     /**
      *
      */
-    private static final long serialVersionUID = 0L;
+    private static final long serialVersionUID = 1L;
     OutputPanel output;
     InputPanel input;
     AleatorParser parser;
+    String prev_input = "";
     
     App() {
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
@@ -29,6 +30,11 @@ public class App extends JFrame {
     protected void enterInput() {
         String output;
         String input = this.input.getInput();
+        if (input.length() > 0) {
+            prev_input = input;
+        } else {
+            input = prev_input;
+        }
         if (input.length() > 0) {
             float result = this.parser.parse(input);
             if ((int)result == result) {    //don't display trailing zeroes 
