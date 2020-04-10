@@ -40,7 +40,8 @@ public class App extends JFrame {
             input = prev_input;
         }
         if (input.length() > 0) {
-            float result = this.parser.parse(input);
+            ResultContainer rc = this.parser.parse(input);
+            float result = rc.result;
             if ((int)result == result) {    //don't display trailing zeroes 
                 output = String.format("%d",(int)result);
             } else {

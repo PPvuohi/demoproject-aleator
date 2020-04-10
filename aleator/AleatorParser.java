@@ -8,58 +8,74 @@ public class AleatorParser {
     AleatorParser() {
         r = new Random();
     }
-    public float parse(String s) {
+    public ResultContainer parse(String s) {
         return parseForSum(s);
     }
-    public float parseForSum(String s) {
+    public ResultContainer parseForSum(String s) {
         String[] parts = s.split("\\+");
-        float result = 0;
+        ResultContainer rc = new ResultContainer();
+        ResultContainer res;
         for(String p : parts) {
-            result += this.parseForDiff(p);
+            res = this.parseForDiff(p);
+            rc.result += res.result;
+            rc.dice.addAll(res.dice);
         }
-        return result;
+        return rc;
     }
-    public float parseForDiff(String s) {
+    public ResultContainer parseForDiff(String s) {
         String[] parts;
         parts = s.split("\\-");
-        float result = this.parseForProduct(parts[0]);
+        ResultContainer rc = this.parseForProduct(parts[0]);
+        ResultContainer res;
         for(int i=1; i<parts.length; i++) {
-            result -= this.parseForProduct(parts[i]);
+            res = this.parseForProduct(parts[i]);
+            rc.result -= res.result;
+            rc.dice.addAll(res.dice);
         }
-        return result;
+        return rc;
     }
-    public float parseForProduct(String s) {
+    public ResultContainer parseForProduct(String s) {
         String[] parts;
         parts = s.split("\\*");
-        float result = this.parseForQuot(parts[0]);
+        ResultContainer rc = this.parseForQuot(parts[0]);
+        ResultContainer res;
         for(int i=1; i<parts.length; i++) {
-            result *= this.parseForQuot(parts[i]);
+            res = this.parseForQuot(parts[i]);
+            rc.result *= res.result;
+            rc.dice.addAll(res.dice);
         }
-        return result;
+        return rc;
     }
-    public float parseForQuot(String s) {
+    public ResultContainer parseForQuot(String s) {
         String[] parts;
         parts = s.split("\\÷");
-        float result = this.parseForDie(parts[0]);
+        ResultContainer rc = this.parseForDie(parts[0]);
+        ResultContainer res;
         for(int i=1; i<parts.length; i++) {
-            result /= this.parseForDie(parts[i]);
+            res = this.parseForDie(parts[i]);
+            rc.result /= res.result;
+            rc.dice.addAll(rc.dice);
         }
-        return result;
+        return rc;
     }
-    public float parseForDie(String s) {
+    public ResultContainer parseForDie(String s) {
+        ResultContainer rc = new ResultContainer();
         String[] parts;
-        float result = 0;
+        rc.result = 0;
         parts = s.split("d");
         if (parts.length == 2) {
             int x = (int)Float.parseFloat(parts[0]);
             int y = (int)Float.parseFloat(parts[1]);
+            int res;
             for(int i=0; i<x; i++) {
-                result += rollDie(y);
+                res = rollDie(y);
+                rc.result += (float)res;
+                rc.dice.add(res);
             }
         } else {
-            result = Float.parseFloat(parts[0]);
+            rc.result = Float.parseFloat(parts[0]);
         }
-        return result;
+        return rc;
     }
     public int rollDie(int sides) {
         int result;
