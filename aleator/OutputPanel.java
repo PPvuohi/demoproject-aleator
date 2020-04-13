@@ -16,6 +16,8 @@ public class OutputPanel extends JPanel implements ActionListener {
         this.root = root;
         output_field.setEditable(false);
         output_field.setFont(output_field.getFont().deriveFont(24f));
+        output_field.setLineWrap(true);
+        output_field.setWrapStyleWord(true);
         this.add(output_field);
 
         JPanel output_nav = new JPanel();

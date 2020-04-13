@@ -49,7 +49,7 @@ public class App extends JFrame {
             }
             String dice = rc.diceToString();
             if (dice.length() > 0) {
-                output += " (rolled: " + dice + ")";    //TODO: wrap input if too long
+                output += " (rolled: " + dice + ")";
             }
             this.output.addLine(input + " → " + output);
         }
